@@ -1,9 +1,7 @@
 package com.sbs.jdbc.board;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -94,18 +92,74 @@ public class Main {
         }
       }
       else if(cmd.equals("/usr/article/list")) {
-        if(articles.isEmpty()) {
-          System.out.println("게시물이 존재하지 않습니다.");
-          continue;
+        Connection conn = null;
+        PreparedStatement pstat = null;
+        ResultSet rs = null;
+
+        try {
+          // JDBC 드라이버 로드
+          Class.forName("com.mysql.cj.jdbc.Driver");
+
+          // 데이터베이스 연결
+          conn = DriverManager.getConnection(URL, USER, PASSWORD);
+          System.out.println("데이터베이스에 성공적으로 연결되었습니다.");
+
+          // SQL 조회 쿼리
+          String sql = "SELECT *";
+          sql += " FROM article";
+          sql += " ORDER BY id DESC";
+
+          pstat = conn.prepareStatement(sql);
+
+          // 쿼리 실행
+          rs = pstat.executeQuery();
+
+          // 결과 출력
+          // rs.next() : 다음장으로 넘긴다.
+          while (rs.next()) {
+            int id = rs.getInt("id");
+            LocalDateTime regDate = rs.getTimestamp("regDate").toLocalDateTime();
+            LocalDateTime updateDate = rs.getTimestamp("updateDate").toLocalDateTime();
+            String subject = rs.getString("subject");
+            String content = rs.getString("content");
+
+            Article article = new Article(id, regDate, updateDate, subject, content);
+            articles.add(article);
+          }
+
+          System.out.println(articles);
+
+        } catch (ClassNotFoundException e) {
+          System.out.println("JDBC 드라이버를 찾을 수 없습니다.");
+          e.printStackTrace();
+        } catch (SQLException e) {
+          System.out.println("데이터베이스 작업 중 오류가 발생했습니다.");
+          e.printStackTrace();
+        } finally {
+          // 자원 해제
+          try {
+            if (rs != null) rs.close();
+            if (pstat != null) pstat.close();
+            if (conn != null) conn.close();
+            System.out.println("데이터베이스 연결이 닫혔습니다.");
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
         }
 
         System.out.println("== 게시물 리스트 ==");
 
-        System.out.println("== 번호 | 제목 ==");
+        System.out.println("== 번호 | 제목 | 작성 날짜 ==");
 
+        /*
         for(int i = 0; i < articles.size(); i++) {
           Article article = articles.get(i);
           System.out.printf(" %d | %s\n", article.id, article.subject);
+        }
+        */
+
+        for(Article article : articles) {
+          System.out.printf(" %d | %s | %s\n", article.id, article.subject, article.regDate);
         }
       }
       else if(cmd.equals("exit")) {
