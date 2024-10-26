@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 // 모든 클래스는 Object를 상속받는다.
 public class Article {
   int id;
-  LocalDate regDate;
-  LocalDate updateDate;
+  LocalDateTime regDate;
+  LocalDateTime updateDate;
   String subject;
   String content;
 
@@ -22,7 +22,7 @@ public class Article {
     this.content = content;
   }
 
-  public Article(int id, LocalDate regDate, LocalDate updateDate, String subject, String content) {
+  public Article(int id, LocalDateTime regDate, LocalDateTime updateDate, String subject, String content) {
     this.id = id;
     this.regDate = regDate;
     this.updateDate = updateDate;

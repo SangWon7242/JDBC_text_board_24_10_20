@@ -41,8 +41,8 @@ public class JDBCSelectTest {
       // rs.next() : 다음장으로 넘긴다.
       while (rs.next()) {
         int id = rs.getInt("id");
-        LocalDate regDate = rs.getDate("regDate").toLocalDate();
-        LocalDate updateDate = rs.getDate("updateDate").toLocalDate();
+        LocalDateTime regDate = rs.getTimestamp("regDate").toLocalDateTime();
+        LocalDateTime updateDate = rs.getTimestamp("updateDate").toLocalDateTime();
         String subject = rs.getString("subject");
         String content = rs.getString("content");
 
