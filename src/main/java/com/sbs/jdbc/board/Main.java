@@ -35,7 +35,18 @@ public class Main {
 
         int id = ++lastArticleId;
 
-        System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
+        /*
+        Article article = new Article(); // 객체 생성 행위
+        article.id = id;
+        article.subject = subject;
+        article.content = content;
+        */
+
+        Article article = new Article(id, subject, content);
+
+        System.out.println("생성 된 게시물 객체 : " + article);
+
+        System.out.printf("%d번 게시물이 등록되었습니다.\n", article.id);
       }
       else if(cmd.equals("exit")) {
         System.out.println("== 게시판을 종료합니다. ==");
@@ -46,6 +57,30 @@ public class Main {
       }
     }
 
-    sc.close(); // 메모리 반납
+    sc.close();
+  }
+}
+
+// 설계도 -> 객체
+// 속성과 기능을 정의 가능
+// 속성(변수), 기능(함수)
+
+// 모든 클래스는 Object를 상속받는다.
+class Article {
+  int id;
+  String subject;
+  String content;
+
+  // 생성자 메서드 : 객체가 생성 될 때 딱 한번 실행!
+  Article(int id, String subject, String content) {
+    this.id = id;
+    this.subject = subject;
+    this.content = content;
+  }
+
+  // 메서드 오버라이딩
+  @Override
+  public String toString() {
+    return "{id : %d, subject : \"%s\", content: \"%s\"}".formatted(id, subject, content);
   }
 }
