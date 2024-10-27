@@ -109,6 +109,18 @@ public class App {
         return;
       }
 
+      SecSql sql = new SecSql();
+      sql.append("SELECT COUNT(*) > 0");
+      sql.append("FROM article");
+      sql.append("WHERE id = ?", id);
+
+      boolean isArticleExists = MysqlUtil.selectRowBooleanValue(sql);
+
+      if(!isArticleExists) {
+        System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+        return;
+      }
+
       System.out.println("== 게시물 수정 ==");
       System.out.print("제목 : ");
       String subject = sc.nextLine();
@@ -126,7 +138,7 @@ public class App {
         return;
       }
 
-      SecSql sql = new SecSql();
+      sql = new SecSql();
       sql.append("UPDATE article");
       sql.append("SET updateDate = NOW()");
       sql.append(", `subject` = ?", subject);
@@ -172,6 +184,34 @@ public class App {
       System.out.printf("수정날짜 : %s\n", article.updateDate);
       System.out.printf("제목 : %s\n", article.subject);
       System.out.printf("내용 : %s\n", article.content);
+
+    } else if (rq.getUrlPath().equals("/usr/article/delete")) {
+      int id = rq.getIntParam("id", 0);
+
+      if (id == 0) {
+        System.out.println("id를 올바르게 입력해주세요.");
+        return;
+      }
+
+      SecSql sql = new SecSql();
+      sql.append("SELECT COUNT(*) > 0");
+      sql.append("FROM article");
+      sql.append("WHERE id = ?", id);
+
+      boolean isArticleExists = MysqlUtil.selectRowBooleanValue(sql);
+
+      if(!isArticleExists) {
+        System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+        return;
+      }
+
+      sql = new SecSql();
+      sql.append("DELETE FROM article");
+      sql.append("WHERE id = ?", id);
+
+      MysqlUtil.delete(sql);
+
+      System.out.printf("%d번 게시물이 삭제되었습니다.\n", id);
 
     } else if (rq.getUrlPath().equals("exit")) {
       System.out.println("== 게시판을 종료합니다. ==");
