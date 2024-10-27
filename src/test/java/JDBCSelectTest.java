@@ -1,7 +1,6 @@
-import com.sbs.jdbc.board.Article;
+import com.sbs.jdbc.board.article.Article;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

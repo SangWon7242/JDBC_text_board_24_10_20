@@ -1,8 +1,7 @@
-package com.sbs.jdbc.board;
+package com.sbs.jdbc.board.article;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.Objects;
 
 // 모든 클래스는 Object를 상속받는다.
 public class Article {

@@ -1,9 +1,4 @@
-import com.sbs.jdbc.board.Article;
-
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JDBCUpdateTest {
   // MySQL 데이터베이스 URL, 사용자명, 비밀번호를 설정합니다.
