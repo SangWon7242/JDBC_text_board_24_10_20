@@ -25,7 +25,7 @@ public class JDBCUpdateTest {
 
       int id = 2;
 
-      // SQL 조회 쿼리
+      // SQL 수정 쿼리
       String sql = "UPDATE article";
       sql += " SET updateDate = NOW()";
       sql += ", `subject` = \"%s\"".formatted("제목 수정 1");
