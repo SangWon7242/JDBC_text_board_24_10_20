@@ -8,6 +8,7 @@ import com.sbs.jdbc.board.util.SecSql;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MemberController {
   private List<Member> members;
@@ -26,12 +27,24 @@ public class MemberController {
     while (true) {
       System.out.print("로그인 아이디 : ");
       loginId = Container.scanner.nextLine();
-      
+
+      SecSql sql = new SecSql();
+      sql.append("SELECT *");
+      sql.append("FROM `member`");
+      sql.append("WHERE loginId = ?", loginId);
+
+      Map<String, Object> memberMap = MysqlUtil.selectRow(sql);
+
+      if(!memberMap.isEmpty()) {
+        System.out.println("현재 입력하신 로그인 아이디는 이미 존재하는 로그인 아이디입니다.");
+        continue;
+      }
+
       if(loginId.trim().isEmpty()) {
         System.out.println("로그인 아이디를 입력해주세요.");
         continue;
       }
-      
+
       break;
     }
 
