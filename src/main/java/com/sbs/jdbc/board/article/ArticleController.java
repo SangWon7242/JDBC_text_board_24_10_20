@@ -2,11 +2,8 @@ package com.sbs.jdbc.board.article;
 
 import com.sbs.jdbc.board.Rq;
 import com.sbs.jdbc.board.container.Container;
-import com.sbs.jdbc.board.util.MysqlUtil;
-import com.sbs.jdbc.board.util.SecSql;
 
 import java.util.List;
-import java.util.Map;
 
 public class ArticleController {
   private ArticleService articleService;

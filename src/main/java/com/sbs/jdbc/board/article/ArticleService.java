@@ -1,78 +1,33 @@
 package com.sbs.jdbc.board.article;
 
-import com.sbs.jdbc.board.util.MysqlUtil;
-import com.sbs.jdbc.board.util.SecSql;
+import com.sbs.jdbc.board.container.Container;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ArticleService {
-  private List<Article> articles;
+  private ArticleRepository articleRepository;
 
   public ArticleService() {
-    articles = new ArrayList<>();
+    articleRepository = Container.articleRepository;
   }
 
   public int write(String subject, String content) {
-    SecSql sql = new SecSql();
-    sql.append("INSERT INTO article");
-    sql.append("SET regDate = NOW()");
-    sql.append(", updateDate = NOW()");
-    sql.append(", `subject` = ?", subject);
-    sql.append(", content = ?", content);
-
-    int id = MysqlUtil.insert(sql);
-    
-    return id;
+    return articleRepository.write(subject, content);
   }
 
   public List<Article> getArticles() {
-    SecSql sql = new SecSql();
-    sql.append("SELECT *");
-    sql.append("FROM article");
-    sql.append("ORDER BY id DESC");
-
-    List<Map<String, Object>> articleListMap = MysqlUtil.selectRows(sql);
-
-    for (Map<String, Object> articleMap : articleListMap) {
-      articles.add(new Article(articleMap));
-    }
-
-    return articles;
+    return articleRepository.getArticles();
   }
 
   public Article findByArticleId(int id) {
-    SecSql sql = new SecSql();
-    sql.append("SELECT *");
-    sql.append("FROM article");
-    sql.append("WHERE id = ?", id);
-
-    Map<String, Object> articleMap = MysqlUtil.selectRow(sql);
-
-    if(articleMap.isEmpty()) {
-      return null;
-    }
-
-    return new Article(articleMap);
+    return articleRepository.findByArticleId(id);
   }
 
   public void update(int id, String subject, String content) {
-    SecSql sql = new SecSql();
-    sql.append("UPDATE article");
-    sql.append("SET updateDate = NOW()");
-    sql.append(", `subject` = ?", subject);
-    sql.append(", content = ?", content);
-    sql.append("WHERE id = ?", id);
-
-    MysqlUtil.update(sql);
+    articleRepository.update(id, subject, content);
   }
 
   public void delete(int id) {
-    SecSql sql = new SecSql();
-    sql.append("DELETE FROM article");
-    sql.append("WHERE id = ?", id);
-
-    MysqlUtil.delete(sql);
+   articleRepository.delete(id);
   }
 }
