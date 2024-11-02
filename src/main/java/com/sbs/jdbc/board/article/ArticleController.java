@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleController {
-  public int lastArticleId;
-  public List<Article> articles;
+  private int lastArticleId;
+  private List<Article> articles;
 
   public ArticleController() {
     lastArticleId = 0;
@@ -67,7 +67,7 @@ public class ArticleController {
     System.out.println("== 번호 | 제목 | 작성 날짜 ==");
 
     for (Map<String, Object> articleMap : articleListMap) {
-      System.out.printf(" %d | %s | %s\n", (int) articleMap.get("id"), articleMap.get("subject"), articleMap.get("content"));
+      System.out.printf(" %d | %s | %s\n", (int) articleMap.get("id"), articleMap.get("subject"), articleMap.get("regDate"));
     }
   }
 
@@ -150,11 +150,11 @@ public class ArticleController {
     Article article = new Article(articleMap);
 
     System.out.println("== 게시물 상세보기 ==");
-    System.out.printf("번호 : %d\n", article.id);
-    System.out.printf("작성날짜 : %s\n", article.regDate);
-    System.out.printf("수정날짜 : %s\n", article.updateDate);
-    System.out.printf("제목 : %s\n", article.subject);
-    System.out.printf("내용 : %s\n", article.content);
+    System.out.printf("번호 : %d\n", article.getId());
+    System.out.printf("작성날짜 : %s\n", article.getRegDate());
+    System.out.printf("수정날짜 : %s\n", article.getUpdateDate());
+    System.out.printf("제목 : %s\n", article.getSubject());
+    System.out.printf("내용 : %s\n", article.getContent());
   }
 
   public void doDelete(Rq rq) {

@@ -1,14 +1,9 @@
 package com.sbs.jdbc.board;
 
-import com.sbs.jdbc.board.article.Article;
 import com.sbs.jdbc.board.article.ArticleController;
 import com.sbs.jdbc.board.container.Container;
 import com.sbs.jdbc.board.util.MysqlUtil;
-import com.sbs.jdbc.board.util.SecSql;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 public class App {

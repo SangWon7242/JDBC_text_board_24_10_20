@@ -1,21 +1,16 @@
 package com.sbs.jdbc.board;
 
 import com.sbs.jdbc.board.util.Util;
+import lombok.Getter;
 
 import java.util.Map;
 
 public class Rq {
   public String url;
+  @Getter
   public String urlPath;
+  @Getter
   public Map<String, String> params;
-
-  public String getUrlPath() {
-    return urlPath;
-  }
-
-  public Map<String, String> getParams() {
-    return params;
-  }
 
   public Rq(String url) {
     this.url = url;
