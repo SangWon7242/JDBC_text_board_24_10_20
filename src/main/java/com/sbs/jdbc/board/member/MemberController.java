@@ -1,20 +1,13 @@
 package com.sbs.jdbc.board.member;
 
 import com.sbs.jdbc.board.Rq;
-import com.sbs.jdbc.board.article.Article;
 import com.sbs.jdbc.board.container.Container;
-import com.sbs.jdbc.board.util.MysqlUtil;
-import com.sbs.jdbc.board.util.SecSql;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class MemberController {
-  private List<Member> members;
+  private MemberService memberService;
 
   public MemberController() {
-    members = new ArrayList<>();
+    memberService = Container.memberService;
   }
 
   public void doJoin(Rq rq) {
@@ -22,20 +15,16 @@ public class MemberController {
     String loginPw;
     String loginPwConfirm;
     String name;
+    Member member;
     
     // 로그인 아이디 입력
     while (true) {
       System.out.print("로그인 아이디 : ");
       loginId = Container.scanner.nextLine();
 
-      SecSql sql = new SecSql();
-      sql.append("SELECT *");
-      sql.append("FROM `member`");
-      sql.append("WHERE loginId = ?", loginId);
+      member = memberService.findByMemberLoginId(loginId);
 
-      Map<String, Object> memberMap = MysqlUtil.selectRow(sql);
-
-      if(!memberMap.isEmpty()) {
+      if(member != null) {
         System.out.println("현재 입력하신 로그인 아이디는 이미 존재하는 로그인 아이디입니다.");
         continue;
       }
@@ -91,15 +80,7 @@ public class MemberController {
       break;
     }
 
-    SecSql sql = new SecSql();
-    sql.append("INSERT INTO `member`");
-    sql.append("SET regDate = NOW()");
-    sql.append(", updateDate = NOW()");
-    sql.append(", loginId = ?", loginId);
-    sql.append(", loginPw = ?", loginPw);
-    sql.append(", `name` = ?", name);
-
-    int id = MysqlUtil.insert(sql);
+    int id = memberService.join(loginId, loginPw, name);
 
     System.out.printf("%d번 회원이 생성되었습니다.\n", id);
     System.out.printf("'%s'님 회원 가입 되었습니다\n", name);
