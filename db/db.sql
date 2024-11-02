@@ -10,3 +10,13 @@ CREATE TABLE article (
 	`subject` CHAR(100) NOT NULL,
 	content TEXT NOT NULL
 );
+
+# member 테이블 생성
+CREATE TABLE `member` (
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId CHAR(50) NOT NULL UNIQUE,
+	loginPw CHAR(100) NOT NULL,
+	`name` CHAR(50) NOT NULL
+);

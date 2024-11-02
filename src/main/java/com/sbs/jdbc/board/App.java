@@ -2,12 +2,13 @@ package com.sbs.jdbc.board;
 
 import com.sbs.jdbc.board.article.ArticleController;
 import com.sbs.jdbc.board.container.Container;
+import com.sbs.jdbc.board.member.MemberController;
 import com.sbs.jdbc.board.util.MysqlUtil;
 
 import java.util.Scanner;
 
 public class App {
-  public Scanner sc;
+  public MemberController memberController;
   public ArticleController articleController;
 
   private static boolean isDevMode() {
@@ -17,7 +18,7 @@ public class App {
   }
 
   public App() {
-    sc = Container.scanner;
+    memberController = Container.memberController;
     articleController = Container.articleController;
   }
 
@@ -27,7 +28,7 @@ public class App {
     try {
       while (true) {
         System.out.print("명령) ");
-        String cmd = sc.nextLine();
+        String cmd = Container.scanner.nextLine();
 
         Rq rq = new Rq(cmd);
 
@@ -41,7 +42,7 @@ public class App {
         doAction(rq);
       }
     } finally {
-      sc.close();
+      Container.scanner.close();
     }
   }
 
@@ -52,6 +53,7 @@ public class App {
       case "/usr/article/modify" -> articleController.doModify(rq);
       case "/usr/article/detail" -> articleController.showDetail(rq);
       case "/usr/article/delete" -> articleController.doDelete(rq);
+      case "/usr/member/join" -> memberController.doJoin(rq);
       case "exit" -> {
         System.out.println("== 게시판을 종료합니다. ==");
         System.exit(0);
