@@ -63,6 +63,8 @@ public class ArticleRepository {
 
     List<Map<String, Object>> articleListMap = MysqlUtil.selectRows(sql);
 
+    List<Article> articles = new ArrayList<>();
+
     for (Map<String, Object> articleMap : articleListMap) {
       articles.add(new Article(articleMap));
     }
