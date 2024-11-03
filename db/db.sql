@@ -58,3 +58,14 @@ memberId = 2,
 `subject` = '제목2',
 content = '내용2',
 hit = 5;
+
+# 게시물 테스트 데이터(개수 증가)
+INSERT INTO article (regDate, updateDate, memberId, `subject`, content, hit)
+SELECT
+NOW(),
+NOW(),
+CAST(10 + (30-10) * RAND() AS INT),
+CONCAT('제목-', UUID()),
+CONCAT('내용-', UUID()),
+CAST(10 + (30-10) * RAND() AS INT)
+FROM article;

@@ -57,7 +57,7 @@ public class App {
   private void doAction(Rq rq) {
     switch (rq.getUrlPath()) {
       case "/usr/article/write" -> articleController.doWrite(rq);
-      case "/usr/article/list" -> articleController.showList();
+      case "/usr/article/list" -> articleController.showList(rq);
       case "/usr/article/modify" -> articleController.doModify(rq);
       case "/usr/article/detail" -> articleController.showDetail(rq);
       case "/usr/article/delete" -> articleController.doDelete(rq);

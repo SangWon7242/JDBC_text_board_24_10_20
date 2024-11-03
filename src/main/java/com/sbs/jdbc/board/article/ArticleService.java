@@ -2,7 +2,9 @@ package com.sbs.jdbc.board.article;
 
 import com.sbs.jdbc.board.container.Container;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArticleService {
   private ArticleRepository articleRepository;
@@ -15,8 +17,16 @@ public class ArticleService {
     return articleRepository.write(memberId, subject, content);
   }
 
-  public List<Article> getArticles() {
-    return articleRepository.getArticles();
+  public List<Article> getArticles(int page, int pageItemCount, String searchKeyword) {
+    int limitFrom = (page - 1) * pageItemCount;
+    int limitTake = pageItemCount;
+
+    Map<String, Object> args = new HashMap<>();
+    args.put("limitFrom", limitFrom);
+    args.put("limitTake", limitTake);
+    args.put("searchKeyword", searchKeyword);
+
+    return articleRepository.getArticles(args);
   }
 
   public Article findByArticleId(int id) {
