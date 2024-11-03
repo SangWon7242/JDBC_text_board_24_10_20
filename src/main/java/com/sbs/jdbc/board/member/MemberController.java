@@ -17,6 +17,11 @@ public class MemberController {
     String name;
     Member member;
 
+    if(rq.isLogined()) {
+      System.out.println("로그아웃 후 이용해주세요.");
+      return;
+    }
+
     // 로그인 아이디 입력
     while (true) {
       System.out.print("로그인 아이디 : ");
@@ -91,6 +96,11 @@ public class MemberController {
     String loginPw;
     Member member;
 
+    if(rq.isLogined()) {
+      System.out.println("로그아웃 후 이용해주세요.");
+      return;
+    }
+
     // 로그인 아이디 입력
     while (true) {
       System.out.print("로그인 아이디 : ");
@@ -139,6 +149,29 @@ public class MemberController {
       break;
     }
 
+    rq.setSessionAttr("loginedMember", member);
+
     System.out.printf("'%s'님 로그인 되었습니다\n", member.getName());
+  }
+
+  public void doLogout(Rq rq) {
+    if(!rq.isLogined()) {
+      System.out.println("로그인 후 이용해주세요.");
+      return;
+    }
+
+    rq.removeSessionAttr("loginedMember");
+    System.out.println("로그아웃 되었습니다.");
+  }
+
+  public void showMyPage(Rq rq) {
+    if(!rq.isLogined()) {
+      System.out.println("로그인 후 이용해주세요.");
+      return;
+    }
+
+    Member member = (Member) rq.getSessionAttr("loginedMember");
+
+    System.out.printf("현재 로그인 한 회원 이름은 %s 입니다.\n", member.getName());
   }
 }

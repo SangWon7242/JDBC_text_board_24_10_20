@@ -5,8 +5,6 @@ import com.sbs.jdbc.board.container.Container;
 import com.sbs.jdbc.board.member.MemberController;
 import com.sbs.jdbc.board.util.MysqlUtil;
 
-import java.util.Scanner;
-
 public class App {
   public MemberController memberController;
   public ArticleController articleController;
@@ -55,6 +53,8 @@ public class App {
       case "/usr/article/delete" -> articleController.doDelete(rq);
       case "/usr/member/join" -> memberController.doJoin(rq);
       case "/usr/member/login" -> memberController.doLogin(rq);
+      case "/usr/member/logout" -> memberController.doLogout(rq);
+      case "/usr/member/mypage" -> memberController.showMyPage(rq);
       case "exit" -> {
         System.out.println("== 게시판을 종료합니다. ==");
         System.exit(0);
