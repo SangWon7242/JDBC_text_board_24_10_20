@@ -54,6 +54,7 @@ public class App {
       case "/usr/article/detail" -> articleController.showDetail(rq);
       case "/usr/article/delete" -> articleController.doDelete(rq);
       case "/usr/member/join" -> memberController.doJoin(rq);
+      case "/usr/member/login" -> memberController.doLogin(rq);
       case "exit" -> {
         System.out.println("== 게시판을 종료합니다. ==");
         System.exit(0);
