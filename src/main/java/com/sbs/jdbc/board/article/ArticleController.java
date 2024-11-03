@@ -76,10 +76,21 @@ public class ArticleController {
       return;
     }
 
+    if(!rq.isLogined()) {
+      System.out.println("로그인 후 이용해주세요.");
+      return;
+    }
+
+    Member member = (Member) rq.getSessionAttr("loginedMember");
     Article article = articleService.findByArticleId(id);
 
     if(article == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+      return;
+    }
+
+    if(article.getMemberId() != member.getId()) {
+      System.out.println("권한이 없습니다.");
       return;
     }
 
@@ -137,10 +148,21 @@ public class ArticleController {
       return;
     }
 
+    if(!rq.isLogined()) {
+      System.out.println("로그인 후 이용해주세요.");
+      return;
+    }
+
+    Member member = (Member) rq.getSessionAttr("loginedMember");
     Article article = articleService.findByArticleId(id);
 
     if(article == null) {
       System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+      return;
+    }
+
+    if(article.getMemberId() != member.getId()) {
+      System.out.println("권한이 없습니다.");
       return;
     }
 
