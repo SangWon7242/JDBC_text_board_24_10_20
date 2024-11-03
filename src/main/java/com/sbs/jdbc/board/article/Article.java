@@ -17,6 +17,7 @@ public class Article {
   private int memberId;
   private String subject;
   private String content;
+  private int hit;
 
   private String extra__writerName; // 작성자 이름
 
@@ -27,8 +28,9 @@ public class Article {
     this.memberId = (int) articleMap.get("memberId");
     this.subject = (String) articleMap.get("subject");
     this.content = (String) articleMap.get("content");
+    this.hit = (int) articleMap.get("hit");
 
-    if(articleMap.get("extra__writerName") != null) {
+    if (articleMap.get("extra__writerName") != null) {
       this.extra__writerName = (String) articleMap.get("extra__writerName");
     }
   }

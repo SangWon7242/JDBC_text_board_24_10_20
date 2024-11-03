@@ -39,17 +39,22 @@ loginId = 'user2',
 loginPw = '1234',
 `name` = 'Bob';
 
+# 게시물 테이블 hit 칼럼 추가
+ALTER TABLE article ADD COLUMN hit INT UNSIGNED NOT NULL AFTER content;
+
 # 게시물 테스트 데이터
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 1,
 `subject` = '제목1',
-content = '내용1';
+content = '내용1',
+hit = 10;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 memberId = 2,
 `subject` = '제목2',
-content = '내용2';
+content = '내용2',
+hit = 5;

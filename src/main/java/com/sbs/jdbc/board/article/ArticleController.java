@@ -60,11 +60,11 @@ public class ArticleController {
 
     System.out.println("== 게시물 리스트 ==");
 
-    System.out.println("== 번호 | 제목 | 작성 날짜 | 작성자 ==");
+    System.out.println("== 번호 | 제목 | 작성 날짜 | 작성자 | 조회수 ==");
 
     for (Article article : articles) {
-      System.out.printf(" %d | %s | %s | %s\n",
-          article.getId(), article.getSubject(), article.getRegDate(), article.getExtra__writerName());
+      System.out.printf(" %d | %s | %s | %s | %d\n",
+          article.getId(), article.getSubject(), article.getRegDate(), article.getExtra__writerName(), article.getHit());
     }
   }
 
@@ -124,6 +124,8 @@ public class ArticleController {
       return;
     }
 
+    articleService.increaseHit(id);
+
     Article article = articleService.findByArticleId(id);
 
     if(article == null) {
@@ -138,6 +140,7 @@ public class ArticleController {
     System.out.printf("작성자 : %s\n", article.getExtra__writerName());
     System.out.printf("제목 : %s\n", article.getSubject());
     System.out.printf("내용 : %s\n", article.getContent());
+    System.out.printf("조회수 : %s\n", article.getHit());
   }
 
   public void doDelete(Rq rq) {
