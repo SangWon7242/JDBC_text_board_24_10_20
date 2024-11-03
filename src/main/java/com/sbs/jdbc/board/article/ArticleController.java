@@ -60,10 +60,11 @@ public class ArticleController {
 
     System.out.println("== 게시물 리스트 ==");
 
-    System.out.println("== 번호 | 제목 | 작성 날짜 ==");
+    System.out.println("== 번호 | 제목 | 작성 날짜 | 작성자 ==");
 
     for (Article article : articles) {
-      System.out.printf(" %d | %s | %s\n", article.getId(), article.getSubject(), article.getRegDate());
+      System.out.printf(" %d | %s | %s | %s\n",
+          article.getId(), article.getSubject(), article.getRegDate(), article.getExtra__writerName());
     }
   }
 
@@ -123,6 +124,7 @@ public class ArticleController {
     System.out.printf("번호 : %d\n", article.getId());
     System.out.printf("작성날짜 : %s\n", article.getRegDate());
     System.out.printf("수정날짜 : %s\n", article.getUpdateDate());
+    System.out.printf("작성자 : %s\n", article.getExtra__writerName());
     System.out.printf("제목 : %s\n", article.getSubject());
     System.out.printf("내용 : %s\n", article.getContent());
   }
