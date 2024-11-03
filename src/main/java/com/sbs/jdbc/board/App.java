@@ -2,7 +2,9 @@ package com.sbs.jdbc.board;
 
 import com.sbs.jdbc.board.article.ArticleController;
 import com.sbs.jdbc.board.container.Container;
+import com.sbs.jdbc.board.member.Member;
 import com.sbs.jdbc.board.member.MemberController;
+import com.sbs.jdbc.board.session.Session;
 import com.sbs.jdbc.board.util.MysqlUtil;
 
 public class App {
@@ -25,9 +27,17 @@ public class App {
 
     try {
       while (true) {
-        System.out.print("명령) ");
-        String cmd = Container.scanner.nextLine();
+        Session session = Container.session;
+        Member member = (Member) session.getAttribute("loginedMember");
 
+        String promptName = "명령";
+
+        if(member != null) {
+          promptName = member.getLoginId();
+        }
+
+        System.out.printf("%s) ", promptName);
+        String cmd = Container.scanner.nextLine();
         Rq rq = new Rq(cmd);
 
         // DB 세팅
